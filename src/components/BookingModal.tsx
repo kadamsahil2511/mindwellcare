@@ -25,10 +25,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pro
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-dark-800 rounded-lg p-8 max-w-md w-full relative">
+      <div className="bg-white rounded-lg p-8 max-w-md w-full relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-dark-400 hover:text-dark-300"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-500"
         >
           <X className="h-6 w-6" />
         </button>
@@ -40,21 +40,21 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pro
             className="h-16 w-16 rounded-full object-cover"
           />
           <div>
-            <h2 className="text-2xl font-bold text-dark-50">{professional.name}</h2>
-            <p className="text-dark-300">{professional.specialization}</p>
+            <h2 className="text-2xl font-bold">{professional.name}</h2>
+            <p className="text-gray-600">{professional.specialization}</p>
           </div>
         </div>
 
         {!isAuthenticated ? (
           <div className="text-center py-4">
-            <p className="text-dark-300 mb-4">Please sign in to book an appointment</p>
+            <p className="text-gray-600 mb-4">Please sign in to book an appointment</p>
             <a
               href="#"
               onClick={() => {
                 onClose();
                 // This would trigger the login modal in a real app
               }}
-              className="text-blue-500 hover:text-blue-400 font-medium"
+              className="text-blue-600 hover:text-blue-700 font-medium"
             >
               Sign In
             </a>
@@ -62,7 +62,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pro
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="date" className="block text-sm font-medium text-dark-200">
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700">
                 Date
               </label>
               <input
@@ -70,20 +70,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pro
                 id="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="mt-1 block w-full rounded-md bg-dark-700 border-dark-600 text-dark-50 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
             
             <div>
-              <label htmlFor="time" className="block text-sm font-medium text-dark-200">
+              <label htmlFor="time" className="block text-sm font-medium text-gray-700">
                 Time
               </label>
               <select
                 id="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="mt-1 block w-full rounded-md bg-dark-700 border-dark-600 text-dark-50 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               >
                 <option value="">Select a time</option>
@@ -98,7 +98,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, pro
             
             <button
               type="submit"
-              className="w-full bg-blue-600 text-dark-50 py-2 px-4 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center"
             >
               <Calendar className="h-5 w-5 mr-2" />
               Book Appointment

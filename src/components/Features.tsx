@@ -26,13 +26,13 @@ const features = [
 
 export const Features = () => {
   return (
-    <div className="py-12 bg-dark-800" id="about">
+    <div className="py-12 bg-white" id="about">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-dark-50 sm:text-4xl">
+          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Why Choose MindWell
           </h2>
-          <p className="mt-4 max-w-2xl text-xl text-dark-300 mx-auto">
+          <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
             We provide comprehensive mental health support with a focus on accessibility and effectiveness.
           </p>
         </div>
@@ -41,17 +41,17 @@ export const Features = () => {
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((feature) => (
               <div key={feature.name} className="pt-6">
-                <div className="flow-root bg-dark-700 rounded-lg px-6 pb-8">
+                <div className="flow-root bg-gray-50 rounded-lg px-6 pb-8">
                   <div className="-mt-6">
                     <div>
-                      <span className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
-                        <feature.icon className="h-6 w-6 text-dark-50" aria-hidden="true" />
+                      <span className="inline-flex items-center justify-center p-3 bg-blue-500 rounded-md shadow-lg">
+                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
                       </span>
                     </div>
-                    <h3 className="mt-8 text-lg font-medium text-dark-50 tracking-tight">
+                    <h3 className="mt-8 text-lg font-medium text-gray-900 tracking-tight">
                       {feature.name}
                     </h3>
-                    <p className="mt-5 text-base text-dark-300">
+                    <p className="mt-5 text-base text-gray-500">
                       {feature.description}
                     </p>
                   </div>
