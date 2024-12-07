@@ -5,6 +5,8 @@ import { TestResultComponent } from '../components/TestResult';
 import { ProfessionalCard } from '../components/ProfessionalCard';
 import { anxietyQuestions } from '../data/questions';
 import { professionals } from '../data/professionals';
+import { analyzeAssessment } from '../services/aiService';
+import { useAssessmentStore } from '../store/assessmentStore';
 import type { TestResult } from '../types';
 
 export const AssessmentPage = () => {
@@ -12,6 +14,8 @@ export const AssessmentPage = () => {
   const [answers, setAnswers] = useState<number[]>([]);
   const [testResult, setTestResult] = useState<TestResult | null>(null);
   const [testCompleted, setTestCompleted] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const setReport = useAssessmentStore(state => state.setReport);
 
   const handleAnswer = (answer: number) => {
     const newAnswers = [...answers];
@@ -19,7 +23,8 @@ export const AssessmentPage = () => {
     setAnswers(newAnswers);
   };
 
-  const calculateResult = () => {
+  const calculateResult = async () => {
+    setIsAnalyzing(true);
     const score = answers.reduce((acc, curr) => acc + curr, 0);
     let severity: 'mild' | 'moderate' | 'severe';
     
@@ -33,8 +38,22 @@ export const AssessmentPage = () => {
       "Maintain a regular sleep schedule",
     ];
 
+    // Prepare answers for AI analysis
+    const answersForAnalysis = answers.map((answer, index) => ({
+      question: anxietyQuestions[index].text,
+      answer: anxietyQuestions[index].options[answer]
+    }));
+
+    try {
+      const aiReport = await analyzeAssessment(answersForAnalysis);
+      setReport(aiReport);
+    } catch (error) {
+      console.error('Error analyzing assessment:', error);
+    }
+
     setTestResult({ severity, score, recommendations });
     setTestCompleted(true);
+    setIsAnalyzing(false);
   };
 
   const handleNext = () => {
@@ -73,10 +92,19 @@ export const AssessmentPage = () => {
               
               <button
                 onClick={handleNext}
-                disabled={answers[currentQuestion] === undefined}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+                disabled={answers[currentQuestion] === undefined || isAnalyzing}
+                className={`w-full bg-blue-600 text-white py-3 px-4 rounded-md transition-colors ${
+                  answers[currentQuestion] === undefined || isAnalyzing
+                    ? 'opacity-50 cursor-not-allowed'
+                    : 'hover:bg-blue-700'
+                }`}
               >
-                {currentQuestion === anxietyQuestions.length - 1 ? 'Complete Test' : 'Next Question'}
+                {isAnalyzing 
+                  ? 'Analyzing Responses...'
+                  : currentQuestion === anxietyQuestions.length - 1 
+                    ? 'Complete Test' 
+                    : 'Next Question'
+                }
               </button>
             </div>
           </div>

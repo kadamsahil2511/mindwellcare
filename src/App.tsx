@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { LandingPage } from './pages/LandingPage';
 import { AssessmentPage } from './pages/AssessmentPage';
 import { AboutPage } from './pages/AboutPage';
+import { DailyNotes } from './components/DailyNotes';
+import { Chat } from './components/Chat';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -24,6 +26,8 @@ function App() {
       {currentPage === 'landing' && <LandingPage />}
       {currentPage === 'assessment' && <AssessmentPage />}
       {currentPage === 'about' && <AboutPage />}
+      {currentPage === 'notes' && <DailyNotes />}
+      {currentPage === 'chat' && <Chat />}
     </>
   );
 }
